@@ -1,0 +1,59 @@
+<div id="registration-container">
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="username">Username:</label>
+      <input id="username" type="text" formControlName="username">
+      <div *ngIf="username?.invalid && (username?.dirty || username?.touched)">
+        <small *ngIf="username?.hasError('required')">Username is required.</small>
+        <small *ngIf="username?.hasError('minlength')">Username must be at least 3 characters long.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" type="email" formControlName="email">
+      <div *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+        <small *ngIf="email?.hasError('required')">Email is required.</small>
+        <small *ngIf="email?.hasError('email')">Please enter a valid email address.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input id="password" type="password" formControlName="password">
+      <div *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+        <small *ngIf="password?.hasError('required')">Password is required.</small>
+        <small *ngIf="password?.hasError('minlength')">Password must be at least 6 characters long.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="confirmPassword">Confirm Password:</label>
+      <input id="confirmPassword" type="password" formControlName="confirmPassword">
+      <div *ngIf="confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched)">
+        <small *ngIf="confirmPassword?.hasError('required')">Confirm Password is required.</small>
+      </div>
+      <div *ngIf="registrationForm.hasError('passwordsNotMatching') && (confirmPassword?.dirty || confirmPassword?.touched)">
+        <small>Passwords do not match.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="preferredContact">Preferred Contact Method:</label>
+      <select id="preferredContact" formControlName="preferredContact">
+        <option value="email">Email</option>
+        <option value="phone">Phone</option>
+      </select>
+    </div>
+    
+    <div>
+      <label for="phoneNumber">Phone Number:</label>
+      <input id="phoneNumber" type="text" formControlName="phoneNumber">
+      <div *ngIf="registrationForm.hasError('phoneRequired') && (phoneNumber?.dirty || phoneNumber?.touched)">
+        <small>Phone Number is required.</small>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="!registrationForm.valid">Register</button>
+  </form>
+</div>
